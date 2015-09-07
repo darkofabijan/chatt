@@ -15,8 +15,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :chatt, Chatt.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "darko",
+  password: "",
   database: "chatt_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
