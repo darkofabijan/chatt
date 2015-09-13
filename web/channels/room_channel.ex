@@ -9,10 +9,9 @@ defmodule Chatt.RoomChannel do
     end
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
+  def handle_in("new:msg", msg, socket) do
+    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+    {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 
   # It is also common to receive messages from the client and
