@@ -18,8 +18,9 @@ class App {
     var $status    = $("#status")
     var $messages  = $("#messages")
     var $input     = $("#message-input")
-    var $form      = $("form")
+    var $form      = $("#chat-form")
     var $username  = $("#username")
+    var room_id    = $("#room_id").val()
 
     socket.onOpen( ev => console.log("OPEN", ev) )
     socket.onError( ev => console.log("ERROR", ev) )
@@ -35,7 +36,9 @@ class App {
 
     $form.submit( e => {
       e.preventDefault()
-      chan.push("new:msg", {user: $username.val(), body: $input.val()})
+      chan.push("new:msg", {user: $username.val(),
+                            body: $input.val(),
+                            room_id: room_id})
       $input.val("")
     })
 
@@ -56,7 +59,7 @@ class App {
     let username = this.sanitize(msg.user || "anonymous")
     let body     = this.sanitize(msg.body)
 
-    return(`<p><strong>[${username}]</strong>&nbsp; ${body}</p>`)
+    return(`<p><strong>[${username}]</strong>&nbsp; ${body}<span class="pull-right">${msg.posted_at}</span></p>`)
   }
 
   static scrollToBottom(messages) {

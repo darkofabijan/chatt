@@ -10,7 +10,11 @@ defmodule Chatt.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
-    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+    {room_id, _} = Integer.parse(msg["room_id"])
+    message = %Chatt.Message{room_id: room_id, user: msg["user"], content: msg["body"]}
+    {:ok, saved_message} = Chatt.Repo.insert(message)
+
+    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"], posted_at: saved_message.inserted_at}
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 

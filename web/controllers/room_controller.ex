@@ -30,7 +30,8 @@ defmodule Chatt.RoomController do
 
   def show(conn, %{"id" => id}) do
     room = Repo.get!(Room, id)
-    render(conn, "show.html", room: room)
+    messages = Repo.all assoc(room, :messages)
+    render(conn, "show.html", room: room, messages: messages)
   end
 
   def edit(conn, %{"id" => id}) do

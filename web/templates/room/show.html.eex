@@ -1,9 +1,19 @@
 <h2><%= @room.name %></h2>
 <p><%= @room.description %></p>
 
-<div id="messages" style="height: 200px; background: #f5f5f5; overflow: auto;"></div>
+<div id="messages" style="height: 200px; background: #f5f5f5; overflow: auto;">
+  <%= for message <- @messages do %>
+    <p>
+      <strong>[<%= message.user %>]</strong>
+      <%= message.content %>
+      <span class="pull-right"><%= message.inserted_at %></span>
+    </p>
+  <% end %>
 
-<form class="form-inline">
+</div>
+
+<form class="form-inline" id="chat-form">
+  <input id="room_id" type="hidden" name="room_id" value="<%= @room.id %>">
   <div class="form-group">
     <input id="username" type="text" class="form-control"                       placeholder="Username"><br>
   </div>

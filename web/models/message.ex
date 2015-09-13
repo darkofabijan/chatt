@@ -3,6 +3,7 @@ defmodule Chatt.Message do
 
   schema "messages" do
     field :content, :string
+    field :user, :string
     belongs_to :room, Chatt.Room
 
     timestamps
