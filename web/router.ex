@@ -16,7 +16,7 @@ defmodule Chatt.Router do
   scope "/", Chatt do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", RoomController, :index
     resources "/rooms", RoomController
   end
 

@@ -12,7 +12,7 @@
   <tbody>
 <%= for room <- @rooms do %>
     <tr>
-      <td><%= room.name %></td>
+      <td><%= link room.name, to: room_path(@conn, :show, room) %></td>
       <td><%= room.description %></td>
 
       <td class="text-right">
